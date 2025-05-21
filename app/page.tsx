@@ -7,15 +7,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ProductCarousel } from "@/components/product-carousel"
 import { ProductCard } from "@/components/product-card"
 
-// Helper function to convert title to slug
-// Remove this function:
-// function titleToSlug(title) {
-//   return title
-//     .toLowerCase()
-//     .replace(/[^\w\s]/g, "")
-//     .replace(/\s+/g, "-")
-// }
-
 export default function Home() {
   const carouselImages = [
     { src: "/assets/product1.png", alt: "Power Control Centre Panel" },
@@ -27,6 +18,7 @@ export default function Home() {
     { src: "/assets/product7.png", alt: "MAHADEV TECH manufacturing facility" },
   ]
 
+  // Simplified product data for the homepage
   const products = [
     {
       title: "Power Control Centres (P.C.C.) Panels",
@@ -39,16 +31,7 @@ export default function Home() {
         "Customizable configurations to meet specific requirements",
         "High short-circuit withstand capacity up to 50kA",
         "Reliable operation in harsh environments",
-        "IP54 protection available for dust and water resistance",
-        "Modular design for easy maintenance and future expansion",
       ],
-      specifications: {
-        "Voltage Rating": "Up to 1000V",
-        "Current Rating": "Up to 6300A",
-        "Protection Class": "IP42-IP54",
-        Form: "Form 1-4b",
-        Standards: "IS/IEC 61439-1&2",
-      },
     },
     {
       title: "Motor Control Centres (M.C.C.) Panels",
@@ -61,16 +44,7 @@ export default function Home() {
         "Modular design with withdrawable modules for easy maintenance",
         "Easy maintenance with front access to all components",
         "Space-efficient layout for maximum component density",
-        "Available with variable frequency drives for speed control",
-        "Remote monitoring and control capabilities",
       ],
-      specifications: {
-        "Voltage Rating": "Up to 690V",
-        "Current Rating": "Up to 630A per feeder",
-        "Protection Class": "IP42-IP54",
-        Form: "Form 3b, 4a, 4b",
-        Standards: "IS/IEC 61439-1&2",
-      },
     },
     {
       title: "Auto Mains Failure (A.M.F.) DG Panels",
@@ -83,16 +57,7 @@ export default function Home() {
         "Smooth load transfer between mains and generator",
         "Programmable timers for startup and cooldown",
         "Comprehensive protection features for generator and load",
-        "Digital display for system parameters and status",
-        "Manual override capability for maintenance",
       ],
-      specifications: {
-        "Voltage Rating": "Up to 440V",
-        "Current Rating": "Up to 3200A",
-        "Protection Class": "IP42-IP54",
-        Controller: "Microprocessor based",
-        Standards: "IS/IEC 61439-1&2",
-      },
     },
     {
       title: "Distribution Boards",
@@ -105,16 +70,7 @@ export default function Home() {
         "Multiple circuit configurations with MCBs, RCCBs, and MCCBs",
         "Reliable circuit protection with coordinated devices",
         "Easy installation with accessible terminations",
-        "Available in single phase and three phase configurations",
-        "Surface or flush mounting options",
       ],
-      specifications: {
-        "Voltage Rating": "Up to 440V",
-        "Current Rating": "Up to 630A",
-        "Protection Class": "IP42-IP54",
-        Ways: "4 to 24 ways",
-        Standards: "IS/IEC 61439-3",
-      },
     },
     {
       title: "PLC Based Systems",
@@ -127,16 +83,7 @@ export default function Home() {
         "Seamless generator synchronization with mains and other generators",
         "Real-time monitoring of all system parameters",
         "Programmable operation sequences for different scenarios",
-        "Data logging and event recording for analysis",
-        "Remote monitoring and control via SCADA integration",
       ],
-      specifications: {
-        "PLC Type": "Siemens/Allen Bradley/Schneider",
-        "I/O Capacity": "Scalable as per requirement",
-        Communication: "Modbus/Profibus/Ethernet",
-        HMI: "Touch screen interface",
-        "Protection Class": "IP54",
-      },
     },
     {
       title: "APFC Panels",
@@ -149,16 +96,7 @@ export default function Home() {
         "Microprocessor-based controller for precise correction",
         "Harmonic filtering options for non-linear loads",
         "Individual capacitor protection with fuses or MCBs",
-        "Digital display for power factor and system parameters",
-        "Compact design with high-quality capacitors",
       ],
-      specifications: {
-        "Voltage Rating": "Up to 440V",
-        "Capacitor Rating": "5 to 500 kVAR",
-        Controller: "6 to 12 stage microprocessor",
-        "Protection Class": "IP42-IP54",
-        Standards: "IS/IEC 61439-1&2",
-      },
     },
   ]
 
@@ -309,11 +247,6 @@ export default function Home() {
                       fill
                       alt={`${client.name} logo`}
                       className="mx-auto object-contain opacity-70 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
-                      onError={(e) => {
-                        // Fallback to placeholder if image fails to load
-                        const target = e.target as HTMLImageElement
-                        target.src = `/placeholder.svg?height=80&width=160&text=${encodeURIComponent(client.name)}`
-                      }}
                     />
                   </div>
                   <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">

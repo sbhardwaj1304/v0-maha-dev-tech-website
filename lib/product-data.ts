@@ -390,3 +390,17 @@ export const products = {
     relatedProducts: ["cable-trays", "distribution-boards", "feeder-pillars"],
   },
 }
+
+// Add TypeScript type for the products
+export type Product = {
+  title: string
+  description: string
+  image: string
+  category?: string
+  features: string[]
+  specifications: Record<string, string>
+  applications?: string[]
+  relatedProducts?: string[]
+}
+
+export type ProductsData = Record<string, Product>

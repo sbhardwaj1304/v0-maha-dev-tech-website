@@ -8,11 +8,17 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-// This would typically come from a database or API
-// Move this to a separate file to avoid serialization issues
+// Import the product data
 import { products } from "@/lib/product-data"
 
-export default function ProductDetailPage({ params }) {
+// Define the page props type
+interface ProductDetailPageProps {
+  params: {
+    slug: string
+  }
+}
+
+export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { slug } = params
   const product = products[slug]
 
@@ -22,10 +28,12 @@ export default function ProductDetailPage({ params }) {
 
   // Get related products data
   const relatedProductsData = product.relatedProducts
-    ? product.relatedProducts.map((relatedSlug) => ({
-        slug: relatedSlug,
-        ...products[relatedSlug],
-      }))
+    ? product.relatedProducts
+        .filter((relatedSlug) => products[relatedSlug]) // Filter out any invalid slugs
+        .map((relatedSlug) => ({
+          slug: relatedSlug,
+          ...products[relatedSlug],
+        }))
     : []
 
   return (
@@ -102,12 +110,13 @@ export default function ProductDetailPage({ params }) {
               <div className="rounded-lg border bg-card p-6">
                 <h3 className="text-xl font-semibold mb-4">Technical Specifications</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  {Object.entries(product.specifications).map(([key, value]) => (
-                    <div key={key} className="flex justify-between border-b pb-2">
-                      <span className="font-medium">{key}:</span>
-                      <span className="text-muted-foreground">{value}</span>
-                    </div>
-                  ))}
+                  {product.specifications &&
+                    Object.entries(product.specifications).map(([key, value]) => (
+                      <div key={key} className="flex justify-between border-b pb-2">
+                        <span className="font-medium">{key}:</span>
+                        <span className="text-muted-foreground">{value}</span>
+                      </div>
+                    ))}
                 </div>
               </div>
             </TabsContent>
@@ -116,12 +125,13 @@ export default function ProductDetailPage({ params }) {
               <div className="rounded-lg border bg-card p-6">
                 <h3 className="text-xl font-semibold mb-4">Common Applications</h3>
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-                  {product.applications.map((application, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span>{application}</span>
-                    </div>
-                  ))}
+                  {product.applications &&
+                    product.applications.map((application, index) => (
+                      <div key={index} className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                        <span>{application}</span>
+                      </div>
+                    ))}
                 </div>
               </div>
             </TabsContent>
