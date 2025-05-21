@@ -8,12 +8,13 @@ import { ProductCarousel } from "@/components/product-carousel"
 import { ProductCard } from "@/components/product-card"
 
 // Helper function to convert title to slug
-function titleToSlug(title) {
-  return title
-    .toLowerCase()
-    .replace(/[^\w\s]/g, "")
-    .replace(/\s+/g, "-")
-}
+// Remove this function:
+// function titleToSlug(title) {
+//   return title
+//     .toLowerCase()
+//     .replace(/[^\w\s]/g, "")
+//     .replace(/\s+/g, "-")
+// }
 
 export default function Home() {
   const carouselImages = [
