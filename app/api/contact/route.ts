@@ -1,19 +1,36 @@
 import { NextResponse } from "next/server"
+import { getMongoClient, getDbName } from "@/lib/mongodb"
+import { addSubmissionFallback } from "@/lib/fallback-store"
 
 export async function POST(request: Request) {
   const data = await request.formData()
-  const firstName = data.get("firstName")
-  const lastName = data.get("lastName")
-  const email = data.get("email")
-  const phone = data.get("phone")
-  const subject = data.get("subject")
-  const message = data.get("message")
+  const firstName = String(data.get("firstName") || "").trim()
+  const lastName = String(data.get("lastName") || "").trim()
+  const email = String(data.get("email") || "").trim()
+  const phone = String(data.get("phone") || "").trim()
+  const subject = String(data.get("subject") || "").trim()
+  const message = String(data.get("message") || "").trim()
 
-  // Here you would typically save this data to a database
-  // For this example, we'll just log it
-  console.log("Form submission:", { firstName, lastName, email, phone, subject, message })
+  const record = {
+    name: [firstName, lastName].filter(Boolean).join(" ").trim() || firstName || lastName || "Unknown",
+    email,
+    phone,
+    message: subject ? `${subject} — ${message}` : message,
+    createdAt: new Date().toISOString(),
+  }
 
-  // In a real application, you might want to send an email notification here
+  try {
+    const client = await getMongoClient()
+    if (client) {
+      const db = client.db(getDbName())
+      await db.collection("submissions").insertOne(record)
+    } else {
+      await addSubmissionFallback(record)
+    }
+  } catch (e) {
+    // fallback store on any db error
+    await addSubmissionFallback(record)
+  }
 
   return NextResponse.json({ message: "Form submitted successfully" })
 }

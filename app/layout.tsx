@@ -15,7 +15,7 @@ export const metadata = {
   title: "MAHADEV TECH - Electrical Manufacturing Solutions",
   description:
     "Manufacturer of high-quality electrical control panels, distribution systems, and power management solutions for industrial applications.",
-    generator: 'v0.dev'
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
